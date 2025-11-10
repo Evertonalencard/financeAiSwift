@@ -11,6 +11,7 @@
 		875476D72EC25D9200D60592 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875476D62EC25D9200D60592 /* ContentView.swift */; };
 		875476D92EC25D9400D60592 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 875476D82EC25D9400D60592 /* Assets.xcassets */; };
 		875476DC2EC25D9400D60592 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 875476DB2EC25D9400D60592 /* Preview Assets.xcassets */; };
+		875476E32EC2744600D60592 /* AdicionarGanho.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875476E22EC2744600D60592 /* AdicionarGanho.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		875476D62EC25D9200D60592 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		875476D82EC25D9400D60592 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		875476DB2EC25D9400D60592 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		875476E22EC2744600D60592 /* AdicionarGanho.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicionarGanho.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				875476D42EC25D9200D60592 /* projetoFinalApp.swift */,
 				875476D62EC25D9200D60592 /* ContentView.swift */,
+				875476E22EC2744600D60592 /* AdicionarGanho.swift */,
 				875476D82EC25D9400D60592 /* Assets.xcassets */,
 				875476DA2EC25D9400D60592 /* Preview Content */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				875476E32EC2744600D60592 /* AdicionarGanho.swift in Sources */,
 				875476D72EC25D9200D60592 /* ContentView.swift in Sources */,
 				875476D52EC25D9200D60592 /* projetoFinalApp.swift in Sources */,
 			);
