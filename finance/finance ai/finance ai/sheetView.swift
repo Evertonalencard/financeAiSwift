@@ -1,0 +1,122 @@
+import SwiftUI
+
+extension Date {
+    var millisecondsSince1970:Int64 {
+        Int64((self.timeIntervalSince1970 * 1000.0).rounded())
+    }
+    
+    init(milliseconds:Int64) {
+        self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
+    }
+}
+
+struct editTransaction: View {
+    @State var categoriaSelecionada: Category?
+    @State var titulo = ""
+    @State var valor = ""
+    @StateObject var viewModel = ViewModel()
+    
+    @State var transaction: Transaction
+    
+    @State private var showAlert = false
+    @State private var alertMessage: String = ""
+    
+    var body: some View {
+        VStack {
+            
+            TextField("", text: $titulo,prompt: Text("Titulo:").font(.system(size: 25)).foregroundColor(.wasabi))
+                .foregroundColor(.wasabi)
+                .font(.system(size: 25))
+                .padding()
+                .frame(width: 350,height: 45)
+                .background(Color.wasabi)
+                .cornerRadius(10)
+                .padding(.bottom,20)
+            
+            TextField("", text: $valor,prompt: Text("Valor:").font(.system(size: 25)).foregroundColor(.wasabi))
+                .foregroundColor(.wasabi)
+                .font(.system(size: 25))
+                .padding()
+                .frame(width: 350,height: 45)
+                .background(Color.rust)
+                .cornerRadius(10)
+                .padding(.bottom,20)
+                .keyboardType(.decimalPad)
+            
+            Picker("Selecione a categoria", selection: $categoriaSelecionada){
+                Text("Selecione").tag(nil as Category?)
+                ForEach(viewModel.categorias, id: \.self) { categoria in
+                    Text(categoria.name).tag(categoria as Category?)
+                }
+            }
+            .pickerStyle(.menu)
+            .frame(width: 350,height: 45)
+            .background(Color.rust)
+            .cornerRadius(10)
+            .tint(.wasabi)// deve ser substituido por categoria.
+            
+            Button("Adicionar") {
+                guard !titulo.isEmpty, !valor.isEmpty else {
+                    alertMessage = "Preencha todos os campos"
+                    showAlert = true
+                    return
+                }
+                
+                guard let valorDouble = Double(valor.replacingOccurrences(of: ",", with: ".")) else {
+                    alertMessage = "Valor inválido"
+                    showAlert = true
+                    return
+                }
+                
+                guard let categoria = categoriaSelecionada else {
+                    alertMessage = "Selecione uma categoria"
+                    showAlert = true
+                    return
+                }
+                
+                viewModel.editTransaction(trasaction: Transaction(
+                    _id: transaction._id,
+                    _rev: transaction._rev,
+                    descricao: titulo,
+                    valor: valorDouble,
+                    data: Int(Date().millisecondsSince1970),
+                    category: categoria
+                ))
+                    
+                titulo = ""
+                valor = ""
+                    
+            }
+            
+            .font(.system(size: 25))
+            .foregroundColor(.black)
+            .frame(width: 350,height: 66)
+            .background(.wasabi)
+            .cornerRadius(20)
+            .padding(.top,30)
+            
+            
+            Spacer()
+        }
+        .containerRelativeFrame([.horizontal, .vertical])
+        .background(Gradient(colors: [.esmerald]))
+        .onAppear(){
+            viewModel.fetch()
+            viewModel.fetchCategorias()
+        }
+        .alert("Aviso", isPresented: $showAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(alertMessage)
+        }
+        
+        
+        
+    }
+}
+
+
+//#Preview {
+//    AdicionarGanho()
+//}
+
