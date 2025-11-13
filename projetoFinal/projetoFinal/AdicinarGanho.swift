@@ -104,9 +104,9 @@ struct AdicionarGanho: View {
                 }
                 
                 .font(.system(size: 25))
-                .foregroundColor(.corTextosBotoes)
+                .foregroundColor(.black)
                 .frame(width: 350,height: 66)
-                .background(.corBotoes)
+                .background(.verdeClarinho)
                 .cornerRadius(20)
                 .padding(.top,30)
                 

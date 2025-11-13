@@ -263,7 +263,77 @@ class ViewModel: ObservableObject {
         }.resume()
     }
     
+    func removeTransaction(trasaction: Transaction) {
+            
+            guard let url = URL(string: "http://192.168.128.31:1880/removeTransaction") else {
+                print("Erro ao criar URL")
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "DELETE"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
+            
+            do {
+                let jsonData = try JSONEncoder().encode(trasaction)
+                request.httpBody = jsonData
+            } catch {
+                print("Erro ao encodar: \(error)")
+                return
+            }
+            
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Erro: \(error)")
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse,
+                   (200...299).contains(httpResponse.statusCode) {
+                    print("Sucesso!")
+                    DispatchQueue.main.async {
+                        self.fetch()
+                    }
+                }
+            }.resume()
+        }
     
+    func editTransaction(trasaction: Transaction) {
+        
+        guard let url = URL(string: "http://192.168.128.31:1880/putTransaction") else {
+            print("Erro ao criar URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        do {
+            let jsonData = try JSONEncoder().encode(trasaction)
+            request.httpBody = jsonData
+        } catch {
+            print("Erro ao encodar: \(error)")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Erro: \(error)")
+                return
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse,
+               (200...299).contains(httpResponse.statusCode) {
+                print("Sucesso!")
+                DispatchQueue.main.async {
+                    self.fetch()
+                }
+            }
+        }.resume()
+    }
     
     
 }

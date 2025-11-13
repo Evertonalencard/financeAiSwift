@@ -26,11 +26,11 @@ struct SheetView: View{
                 Spacer()
                 TextField("", text: $nome, prompt:
                             Text("Nome:").font(.system(size: 25)).foregroundColor(.corTextosBotoes))
-                .foregroundColor(.corBotoes)
+                .foregroundColor(.verdeClarinho)
                 .font(.system(size: 25))
                 .padding()
                 .frame(width: 350,height: 45)
-                .background(Color.corBotoes)
+                .background(Color.verdeClarinho)
                 .cornerRadius(10)
                 .padding(.bottom,20)
                 
@@ -40,7 +40,7 @@ struct SheetView: View{
                 .font(.system(size: 25))
                 .foregroundColor(.black)
                 .frame(width: 350,height: 66)
-                .background(.corCategoria)
+                .background(.corTextosBotoes)
                 .cornerRadius(10)
                 .padding(.top,30)
                 
@@ -67,7 +67,7 @@ struct categorias: View {
             VStack{
                 Text("Categorias")
                     .font(.title)
-                    .foregroundColor(.corBotoes)
+                    .foregroundColor(.corTextosBotoes)
                 Spacer()
             }
             VStack{
@@ -87,7 +87,7 @@ struct categorias: View {
                     .foregroundColor(.corTextosBotoes)
                     .font(.system(size: 30))
                     .padding(.leading, 20)
-                    .background(Color.corBotoes)
+                    .background(Color.corCaixaDeTexto)
                     .cornerRadius(10)
                     .padding(.bottom,20)
                     .padding(.horizontal)
@@ -100,7 +100,7 @@ struct categorias: View {
                 .font(.system(size:25))
                 .foregroundColor(.black)
                 .frame(width: 350,height: 66)
-                .background(.corCategoria)
+                .background(.verdeClarinho)
                 .cornerRadius(10)
             }
         }.onAppear() {
