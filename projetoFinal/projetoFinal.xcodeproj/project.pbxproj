@@ -14,6 +14,7 @@
 		069F12DC2EC3B056000193C9 /* categorias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069F12DB2EC3B056000193C9 /* categorias.swift */; };
 		069F12DE2EC3B501000193C9 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069F12DD2EC3B501000193C9 /* File.swift */; };
 		1605D5452EC556EC0027AEDE /* AdicinarGanho.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1605D5442EC556D00027AEDE /* AdicinarGanho.swift */; };
+		165C5C852EC57A3B0013051D /* TelaInicial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165C5C842EC578950013051D /* TelaInicial.swift */; };
 		1675E92C2EC568F400271167 /* sheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1675E92B2EC568F300271167 /* sheetView.swift */; };
 		1675E9372EC56A6E00271167 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 1675E9362EC56A6E00271167 /* AsyncAlgorithms */; };
 /* End PBXBuildFile section */
@@ -27,6 +28,7 @@
 		069F12DB2EC3B056000193C9 /* categorias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categorias.swift; sourceTree = "<group>"; };
 		069F12DD2EC3B501000193C9 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		1605D5442EC556D00027AEDE /* AdicinarGanho.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicinarGanho.swift; sourceTree = "<group>"; };
+		165C5C842EC578950013051D /* TelaInicial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelaInicial.swift; sourceTree = "<group>"; };
 		1675E92B2EC568F300271167 /* sheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,6 +69,7 @@
 				069F12DB2EC3B056000193C9 /* categorias.swift */,
 				1605D5442EC556D00027AEDE /* AdicinarGanho.swift */,
 				1675E92B2EC568F300271167 /* sheetView.swift */,
+				165C5C842EC578950013051D /* TelaInicial.swift */,
 				069F12CF2EC39EA8000193C9 /* Assets.xcassets */,
 				069F12D12EC39EA8000193C9 /* Preview Content */,
 			);
@@ -156,6 +159,7 @@
 			files = (
 				069F12CE2EC39EA7000193C9 /* ContentView.swift in Sources */,
 				069F12DE2EC3B501000193C9 /* File.swift in Sources */,
+				165C5C852EC57A3B0013051D /* TelaInicial.swift in Sources */,
 				069F12DC2EC3B056000193C9 /* categorias.swift in Sources */,
 				069F12CC2EC39EA7000193C9 /* projetofinalApp.swift in Sources */,
 				1675E92C2EC568F400271167 /* sheetView.swift in Sources */,

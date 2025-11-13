@@ -36,6 +36,9 @@ struct NovaTransacao: Codable {
 class ViewModel: ObservableObject {
     @Published var categories: [Category] = []
     @Published var transactions: [Transaction] = []
+    @Published var gastos: Double = 0
+    @Published var ganhos: Double = 0
+    @Published var gastosGanhos: [Double] = []
     
     var isLoading = false
     var usarMock = true
@@ -333,6 +336,44 @@ class ViewModel: ObservableObject {
                 }
             }
         }.resume()
+    }
+    
+    func calculoGanhos() {
+        
+        //        self.fetch()
+        
+        var ganhos: Double = 0.0
+        
+        
+        for data in transactions {
+            //            print(data.valor)
+            if data.valor > 0 {
+                ganhos += data.valor
+            }
+        }
+        
+//        print(ganhos)
+        
+        self.ganhos = ganhos
+    }
+    
+    func calculoGastos()  {
+        
+        //        self.fetch()
+        
+        
+        var gastos: Double = 0.0
+        
+        for data in transactions {
+            //            print(data.valor)
+            if data.valor < 0 {
+                gastos += data.valor
+            }
+        }
+        
+//        print(gastos)
+        
+        self.gastos = gastos
     }
     
     
