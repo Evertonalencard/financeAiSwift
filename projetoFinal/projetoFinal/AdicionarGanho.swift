@@ -1,83 +1,127 @@
-//
-//  AdicionarGanho.swift
-//  projetoFinal
-//
-//  Created by Turma02-22 on 10/11/25.
-//
-
 import SwiftUI
 
 struct AdicionarGanho: View {
-    // Source - https://stackoverflow.com/a
-    // Posted by BigMountainStudio.com, modified by community. See post 'Timeline' for change history
-    // Retrieved 2025-11-10, License - CC BY-SA 4.0
-
+    @State var categoriaSelecionada: Category?
+    @State var titulo = ""
+    @State var valor = ""
+    @State var valorAux:Int = 0
+    @State var ganhoOuGasto = true
+    @StateObject var viewModel = ViewModel()
+    
+    @State private var showAlert = false
+    @State private var alertMessage: String = ""
+    
     var body: some View {
-        @State var nome = ""
-        @State var valor = ""
-        @State var categoria = ""
-        
-            VStack {
-                
+        VStack {
+            
+            if ganhoOuGasto  == false{
                 Text("Adicionar ganho")
-                        .font(.title)
-                        .foregroundColor(.corTextosBotoes)
-                
-                Spacer()
-               
-                
-                TextField("", text: $nome,prompt: Text("Nome:").font(.system(size: 25)).foregroundColor(.corTextosBotoes))
+                    .font(.title)
                     .foregroundColor(.corTextosBotoes)
-                    .font(.system(size: 25))
-                    .padding()
-                    .frame(width: 350,height: 45)
-                    .background(Color.corCaixaDeTexto)
-                    .cornerRadius(10)
-                    .padding(.bottom,20)
-                
-                TextField("", text: $valor,prompt: Text("valor:").font(.system(size: 25)).foregroundColor(.corTextosBotoes))
+            }else{
+                Text("Adicionar gasto")
+                    .font(.title)
                     .foregroundColor(.corTextosBotoes)
-                    .font(.system(size: 25))
-                    .padding()
-                    .frame(width: 350,height: 45)
-                    .background(Color.corCaixaDeTexto)
-                    .cornerRadius(10)
-                    .padding(.bottom,20)
-                    .keyboardType(.phonePad)
-                    
-//                TextField("", text: $categoria,prompt: Text(":").font(.system(size: 25))
-//                    .foregroundColor(.corTextosBotoes))
-//                    .padding()
-//                    .frame(width: 350,height: 45)
-//                    .background(Color.corCaixaDeTexto)
-//                    .cornerRadius(10)
-//                    .padding(.bottom,20)
-                
-                
-                    
-                Button("Adicionar") {
-                    
-                }
-                .font(.system(size: 25))
-                .foregroundColor(.black)
-                .frame(width: 350,height: 66)
-                .background(.corBotoes)
-                .cornerRadius(10)
-                .padding(.top,30)
-                    
-                    
-                    
-                    
-                    
             }
-            .containerRelativeFrame([.horizontal, .vertical])
-            .background(Gradient(colors: [.corDeFundo]))
+
+            TextField("", text: $titulo,prompt: Text("Titulo:").font(.system(size: 25)).foregroundColor(.corTextosBotoes))
+                .foregroundColor(.corTextosBotoes)
+                .font(.system(size: 25))
+                .padding()
+                .frame(width: 350,height: 45)
+                .background(Color.corCaixaDeTexto)
+                .cornerRadius(10)
+                .padding(.bottom,20)
+            
+            TextField("", text: $valor,prompt: Text("Valor:").font(.system(size: 25)).foregroundColor(.corTextosBotoes))
+                .foregroundColor(.corTextosBotoes)
+                .font(.system(size: 25))
+                .padding()
+                .frame(width: 350,height: 45)
+                .background(Color.corCaixaDeTexto)
+                .cornerRadius(10)
+                .padding(.bottom,20)
+                .keyboardType(.decimalPad)
+            
+            Picker("Selecione a categoria", selection: $categoriaSelecionada){
+                Text("Selecione").tag(nil as Category?)
+                ForEach(viewModel.categorias, id: \.self) { categoria in
+                    
+                    Text(categoria.name).tag(categoria as Category?)
+                }
+            }
+            .pickerStyle(.menu)
+            .frame(width: 350,height: 45)
+            .background(Color.corCaixaDeTexto)
+            .cornerRadius(10)
+            .tint(.corTextosBotoes)
+            
+            Button("Adicionar") {
+                guard !titulo.isEmpty, !valor.isEmpty else {
+                    alertMessage = "Preencha todos os campos"
+                    showAlert = true
+                    return
+                }
+                
+                guard var valorDouble = Double(valor.replacingOccurrences(of: ",", with: ".")) else {
+                    alertMessage = "Valor inválido"
+                    showAlert = true
+                    return
+                }
+                
+                
+                    
+                
+                guard let categoria = categoriaSelecionada else {
+                    alertMessage = "Selecione uma categoria"
+                    showAlert = true
+                    return
+                }
+                if ganhoOuGasto {
+                    valorDouble = Double(valor)! * -1
+                }
+                
+                viewModel.addTransaction(
+                    descricao: titulo,
+                    valor: valorDouble,
+                    categoria: categoria
+                )
+                
+                titulo = ""
+                valor = ""
+            }
+            
+            .font(.system(size: 25))
+            .foregroundColor(.black)
+            .frame(width: 350,height: 66)
+            .background(.corBotoes)
+            .cornerRadius(20)
+            .padding(.top,30)
             
             
+            
+            
+            Spacer()
+        }
+        .containerRelativeFrame([.horizontal, .vertical])
+        .background(Gradient(colors: [.corDeFundo]))
+        .onAppear(){
+            viewModel.fetch()
+            viewModel.fetchCategorias()
+        }
+        .alert("Aviso", isPresented: $showAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(alertMessage)
+        }
+        
+        
         
     }
 }
 
+
 #Preview {
     AdicionarGanho()
 }
+

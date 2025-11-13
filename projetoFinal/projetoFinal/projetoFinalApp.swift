@@ -1,14 +1,14 @@
 //
-//  projetoFinalApp.swift
-//  projetoFinal
+//  projetofinalApp.swift
+//  projetofinal
 //
-//  Created by Turma02-22 on 10/11/25.
+//  Created by Turma02-9 on 11/11/25.
 //
 
 import SwiftUI
 
 @main
-struct projetoFinalApp: App {
+struct projetofinalApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
