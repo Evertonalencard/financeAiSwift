@@ -1,21 +1,19 @@
 //
 //  ContentView.swift
-//  projetoFinal
+//  projetofinal
 //
-//  Created by Turma02-22 on 10/11/25.
+//  Created by Turma02-9 on 11/11/25.
 //
 
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        ZStack {
+            Color(.green)
+            Color.black.ignoresSafeArea().opacity(0.8)
+                        Text("Hello, world!")
+        }.ignoresSafeArea()
     }
 }
 
