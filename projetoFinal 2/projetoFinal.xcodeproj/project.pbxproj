@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		032A1ED42EC6474E0066CD8F /* TelaInicialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032A1ED32EC6474E0066CD8F /* TelaInicialView.swift */; };
 		069F12CC2EC39EA7000193C9 /* projetofinalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069F12CB2EC39EA7000193C9 /* projetofinalApp.swift */; };
 		069F12CE2EC39EA7000193C9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069F12CD2EC39EA7000193C9 /* ContentView.swift */; };
 		069F12D02EC39EA8000193C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 069F12CF2EC39EA8000193C9 /* Assets.xcassets */; };
@@ -14,12 +15,16 @@
 		069F12DC2EC3B056000193C9 /* categorias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069F12DB2EC3B056000193C9 /* categorias.swift */; };
 		069F12DE2EC3B501000193C9 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069F12DD2EC3B501000193C9 /* File.swift */; };
 		1605D5452EC556EC0027AEDE /* AdicinarGanho.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1605D5442EC556D00027AEDE /* AdicinarGanho.swift */; };
-		165C5C852EC57A3B0013051D /* TelaInicial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165C5C842EC578950013051D /* TelaInicial.swift */; };
 		1675E92C2EC568F400271167 /* sheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1675E92B2EC568F300271167 /* sheetView.swift */; };
 		1675E9372EC56A6E00271167 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 1675E9362EC56A6E00271167 /* AsyncAlgorithms */; };
+		168D690D2EC6C23200615BEB /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168D690C2EC6C22800615BEB /* TabView.swift */; };
+		168D69212EC6C8CE00615BEB /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = 168D69202EC6C8CE00615BEB /* GoogleGenerativeAI */; };
+		168D69222EC6CA3100615BEB /* ApiKeyValid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168D691F2EC6C6CB00615BEB /* ApiKeyValid.swift */; };
+		871C1F612EC6748F002D9C5C /* IADasFinancas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871C1F602EC6748F002D9C5C /* IADasFinancas.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		032A1ED32EC6474E0066CD8F /* TelaInicialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TelaInicialView.swift; path = projetoFinal/TelaInicialView.swift; sourceTree = SOURCE_ROOT; };
 		069F12C82EC39EA7000193C9 /* projetofinal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = projetofinal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		069F12CB2EC39EA7000193C9 /* projetofinalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projetofinalApp.swift; sourceTree = "<group>"; };
 		069F12CD2EC39EA7000193C9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -28,8 +33,10 @@
 		069F12DB2EC3B056000193C9 /* categorias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categorias.swift; sourceTree = "<group>"; };
 		069F12DD2EC3B501000193C9 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		1605D5442EC556D00027AEDE /* AdicinarGanho.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicinarGanho.swift; sourceTree = "<group>"; };
-		165C5C842EC578950013051D /* TelaInicial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelaInicial.swift; sourceTree = "<group>"; };
 		1675E92B2EC568F300271167 /* sheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sheetView.swift; sourceTree = "<group>"; };
+		168D690C2EC6C22800615BEB /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		168D691F2EC6C6CB00615BEB /* ApiKeyValid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyValid.swift; sourceTree = "<group>"; };
+		871C1F602EC6748F002D9C5C /* IADasFinancas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IADasFinancas.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +45,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1675E9372EC56A6E00271167 /* AsyncAlgorithms in Frameworks */,
+				168D69212EC6C8CE00615BEB /* GoogleGenerativeAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,13 +71,16 @@
 		069F12CA2EC39EA7000193C9 /* projetofinal */ = {
 			isa = PBXGroup;
 			children = (
+				168D691F2EC6C6CB00615BEB /* ApiKeyValid.swift */,
+				032A1ED32EC6474E0066CD8F /* TelaInicialView.swift */,
+				871C1F602EC6748F002D9C5C /* IADasFinancas.swift */,
 				069F12DD2EC3B501000193C9 /* File.swift */,
 				069F12CB2EC39EA7000193C9 /* projetofinalApp.swift */,
+				168D690C2EC6C22800615BEB /* TabView.swift */,
 				069F12CD2EC39EA7000193C9 /* ContentView.swift */,
 				069F12DB2EC3B056000193C9 /* categorias.swift */,
 				1605D5442EC556D00027AEDE /* AdicinarGanho.swift */,
 				1675E92B2EC568F300271167 /* sheetView.swift */,
-				165C5C842EC578950013051D /* TelaInicial.swift */,
 				069F12CF2EC39EA8000193C9 /* Assets.xcassets */,
 				069F12D12EC39EA8000193C9 /* Preview Content */,
 			);
@@ -130,6 +141,7 @@
 			mainGroup = 069F12BF2EC39EA7000193C9;
 			packageReferences = (
 				1675E9352EC56A6E00271167 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
+				032A1ED22EC645610066CD8F /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
 			);
 			productRefGroup = 069F12C92EC39EA7000193C9 /* Products */;
 			projectDirPath = "";
@@ -159,10 +171,13 @@
 			files = (
 				069F12CE2EC39EA7000193C9 /* ContentView.swift in Sources */,
 				069F12DE2EC3B501000193C9 /* File.swift in Sources */,
-				165C5C852EC57A3B0013051D /* TelaInicial.swift in Sources */,
+				032A1ED42EC6474E0066CD8F /* TelaInicialView.swift in Sources */,
+				871C1F612EC6748F002D9C5C /* IADasFinancas.swift in Sources */,
 				069F12DC2EC3B056000193C9 /* categorias.swift in Sources */,
+				168D69222EC6CA3100615BEB /* ApiKeyValid.swift in Sources */,
 				069F12CC2EC39EA7000193C9 /* projetofinalApp.swift in Sources */,
 				1675E92C2EC568F400271167 /* sheetView.swift in Sources */,
+				168D690D2EC6C23200615BEB /* TabView.swift in Sources */,
 				1605D5452EC556EC0027AEDE /* AdicinarGanho.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +386,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		032A1ED22EC645610066CD8F /* XCRemoteSwiftPackageReference "generative-ai-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/generative-ai-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.6;
+			};
+		};
 		1675E9352EC56A6E00271167 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-async-algorithms.git";
@@ -386,6 +409,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1675E9352EC56A6E00271167 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */;
 			productName = AsyncAlgorithms;
+		};
+		168D69202EC6C8CE00615BEB /* GoogleGenerativeAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 032A1ED22EC645610066CD8F /* XCRemoteSwiftPackageReference "generative-ai-swift" */;
+			productName = GoogleGenerativeAI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

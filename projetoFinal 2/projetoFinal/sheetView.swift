@@ -11,12 +11,12 @@ extension Date {
 }
 
 struct editTransaction: View {
-    @State var categoriaSelecionada: Category?
-    @State var titulo = ""
-    @State var valor = ""
-    @StateObject var viewModel = ViewModel()
-    
     @State var transaction: Transaction
+    
+    @State var categoriaSelecionada: Category?
+    @State var titulo = ""//"\(transaction.descricao)"
+    @State var valor = ""//"\(transaction.valor)"
+    @StateObject var viewModel = ViewModel()
     
     @State private var showAlert = false
     @State private var alertMessage: String = ""
@@ -82,7 +82,7 @@ struct editTransaction: View {
                         _rev: transaction._rev,
                         descricao: titulo,
                         valor: valorDouble,
-                        data: Int(Date().millisecondsSince1970),
+                        data: transaction.data,
                         category: categoria
                     ))
                     
@@ -106,6 +106,8 @@ struct editTransaction: View {
         .onAppear(){
             viewModel.fetch()
             viewModel.fetchCategory()
+            titulo = "\(transaction.descricao)"
+            valor = "\(transaction.valor)"
         }
         .alert("Aviso", isPresented: $showAlert) {
             Button("OK", role: .cancel) { }

@@ -13,39 +13,40 @@ struct SheetView: View{
     @State var nome = ""
     @State var viewModel = ViewModel()
     var body: some View{
-        ZStack{
-            Color.corDeFundo
-                .ignoresSafeArea()
-            VStack{
-                Text("Adicionar Categoria")
-                    .font(.title)
-                    .foregroundColor(.corTextosBotoes)
-                Spacer()
-            }
-            VStack{
-                Spacer()
-                TextField("", text: $nome, prompt:
-                            Text("Nome:").font(.system(size: 25)).foregroundColor(.corTextosBotoes))
-                .foregroundColor(.verdeClarinho)
-                .font(.system(size: 25))
-                .padding()
-                .frame(width: 350,height: 45)
-                .background(Color.verdeClarinho)
-                .cornerRadius(10)
-                .padding(.bottom,20)
-                
-                Button("Adicionar") {
-                    viewModel.addCategory(nome: nome)
+            ProgressView()
+                    ZStack{
+                Color.corDeFundo
+                    .ignoresSafeArea()
+                VStack{
+                    Text("Adicionar Categoria")
+                        .font(.title)
+                        .foregroundColor(.corTextosBotoes)
+                    Spacer()
                 }
-                .font(.system(size: 25))
-                .foregroundColor(.black)
-                .frame(width: 350,height: 66)
-                .background(.corTextosBotoes)
-                .cornerRadius(10)
-                .padding(.top,30)
-                
+                VStack{
+                    Spacer()
+                    TextField("", text: $nome, prompt:
+                                Text("Nome:").font(.system(size: 25)).foregroundColor(.corTextosBotoes))
+                    .foregroundColor(.corTextosBotoes)
+                    .font(.system(size: 25))
+                    .padding()
+                    .frame(width: 350,height: 45)
+                    .background(Color.corCaixaDeTexto)
+                    .cornerRadius(10)
+                    .padding(.bottom,20)
+                    
+                    Button("Adicionar") {
+                        viewModel.addCategory(nome: nome)
+                    }
+                    .font(.system(size: 25))
+                    .foregroundColor(.black)
+                    .frame(width: 350,height: 66)
+                    .background(.verdeClarinho)
+                    .cornerRadius(10)
+                    .padding(.top,30)
+                    
+                }
             }
-        }
         .onAppear(){
             viewModel.fetchCategory()
         }

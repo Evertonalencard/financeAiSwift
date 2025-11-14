@@ -7,14 +7,15 @@
 
 import SwiftUI
 import Charts
-
+//import Charts
+//
 struct CustomDetent: CustomPresentationDetent {
     static func height(in context: Context) -> CGFloat? {
         return context.maxDetentValue - 1
     }
 }
 
-struct TelaInicial: View {
+struct TelaInicialView: View {
     @State private var showingSheetGasto = false
     @State private var showingSheetGanho = false
 
@@ -24,8 +25,8 @@ struct TelaInicial: View {
     }
     @State var ganhos: Double = 0
     @State var gastos: Double = 0
-    @State var clicouGanho: Bool = true
-    @State var clicouGasto: Bool = false
+    @State var clicouGanho: Bool = false
+    @State var clicouGasto: Bool = true
     // let dadosCompletos = dados.transactions
     
     
@@ -121,11 +122,11 @@ struct TelaInicial: View {
                             showingSheetGanho.toggle()
                             clicouGanho = false
                         }.sheet(isPresented: $showingSheetGanho) {
-                            AdicionarGanho(ganhoOuGasto: $clicouGanho)
+                            AdicionarGanho(ganhoOuGasto: clicouGanho)
                                 .presentationDetents([
                                     .custom(CustomDetent.self)
                                 ])
-                                .presentationDetents([.fraction(0.5)])
+                                .presentationDetents([.fraction(0.65)])
                         }
                     
                     Spacer()
@@ -137,20 +138,22 @@ struct TelaInicial: View {
                             showingSheetGasto.toggle()
                             clicouGasto = true
                         }.sheet(isPresented: $showingSheetGasto) {
-                            AdicionarGanho(ganhoOuGasto: $clicouGasto)
+                            AdicionarGanho(ganhoOuGasto: clicouGasto)
                                 .presentationDetents([
                                     .custom(CustomDetent.self)
                                 ])
-                                .presentationDetents([.fraction(0.5)])
+                                .presentationDetents([.fraction(0.65)])
                         }
                     Spacer()
                 }
-            }
+            }.padding()
+            
             .onAppear() {
                 dados.fetch()
                 
             }
         }.ignoresSafeArea()
+            
         
         
     }
@@ -159,7 +162,7 @@ struct TelaInicial: View {
 }
 
 
-
+//
 #Preview {
-    TelaInicial()
+    TelaInicialView()
 }

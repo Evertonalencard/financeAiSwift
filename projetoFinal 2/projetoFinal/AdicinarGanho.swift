@@ -18,55 +18,80 @@ struct AdicionarGanho: View {
     @State private var showAlert = false
     @State private var alertMessage: String = ""
     
+    
+    
     var body: some View {
         ZStack{
             Color.corDeFundo
                 .ignoresSafeArea()
             VStack {
-                
                 if ganhoOuGasto  == false{
                     Text("Adicionar ganho")
                         .font(.title)
                         .foregroundColor(.corTextosBotoes)
-                }else{
+                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        .padding(.top)
+                } else {
                     Text("Adicionar gasto")
                         .font(.title)
                         .foregroundColor(.corTextosBotoes)
+                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        .padding(.top)
                 }
                 
-                TextField("", text: $titulo,prompt: Text("Titulo:").font(.system(size: 25)).foregroundColor(.corTextosBotoes))
-                    .foregroundColor(.corTextosBotoes)
-                    .font(.system(size: 25))
-                    .padding()
-                    .frame(width: 350,height: 45)
-                    .background(Color.corCaixaDeTexto)
-                    .cornerRadius(10)
-                    .padding(.bottom,20)
-                
-                TextField("", text: $valor,prompt: Text("Valor:").font(.system(size: 25)).foregroundColor(.corTextosBotoes))
-                    .foregroundColor(.corTextosBotoes)
-                    .font(.system(size: 25))
-                    .padding()
-                    .frame(width: 350,height: 45)
-                    .background(Color.corCaixaDeTexto)
-                    .cornerRadius(10)
-                    .padding(.bottom,20)
-                    .keyboardType(.decimalPad)
-                
-                Picker("Selecione a categoria", selection: $categoriaSelecionada){
-                    Text("Selecione")
-                        .tag(nil as Category?)
-                    ForEach(viewModel.categories, id: \.self) { categoriaa in
-                        
-                        Text(categoriaa.name)
-                            .tag(categoriaa as Category?)
+                VStack (alignment: .leading) {
+                    Text("Título")
+                        .font(.title)
+                        .padding(0)
+                        .foregroundStyle(Color.corTextosBotoes)
+                    TextField("", text: $titulo)
+                        .font(.system(size: 25))
+                        .foregroundColor(.corTextosBotoes)
+                        .font(.system(size: 25))
+                        .padding()
+                        .frame(width: 350,height: 45)
+                        .background(Color.corCaixaDeTexto)
+                        .cornerRadius(10)
+                        .padding(.bottom,20)
+                }.padding(-10)
+                VStack (alignment: .leading) {
+                    Text("Valor")
+                        .padding(0)
+                        .font(.title)
+                        .foregroundStyle(Color.corTextosBotoes)
+                    TextField("", text: $valor)
+                        .font(.system(size: 25))
+                        .foregroundColor(.corTextosBotoes)
+                        .font(.system(size: 25))
+                        .padding()
+                        .frame(width: 350,height: 45)
+                        .background(Color.corCaixaDeTexto)
+                        .cornerRadius(10)
+                        .padding(.bottom,20)
+                        .keyboardType(.decimalPad)
+                }.padding(0)
+               
+                VStack  (alignment: .leading){
+                    Text("Categoria")
+                        .font(.title)
+                        .padding(0)
+                        .foregroundStyle(Color.corTextosBotoes)
+                    Picker("Selecione a categoria", selection: $categoriaSelecionada){
+                        Text("Selecione")
+                            .tag(nil as Category?)
+                        ForEach(viewModel.categories, id: \.self) { categoriaa in
+                            
+                            Text(categoriaa.name)
+                                .tag(categoriaa as Category?)
+                        }
                     }
-                }
-                .pickerStyle(.menu)
-                .frame(width: 350,height: 45)
-                .background(Color.corCaixaDeTexto)
-                .cornerRadius(10)
-                .tint(.corTextosBotoes)
+                    .pickerStyle(.menu)
+                    .frame(width: 350,height: 45)
+                    .background(Color.corCaixaDeTexto)
+                    .cornerRadius(10)
+                    .tint(.corTextosBotoes)
+                }.padding(-10)
+                
                 
                 Button("Adicionar") {
                     guard !titulo.isEmpty, !valor.isEmpty else {
@@ -102,19 +127,15 @@ struct AdicionarGanho: View {
                     titulo = ""
                     valor = ""
                 }
-                
                 .font(.system(size: 25))
                 .foregroundColor(.black)
                 .frame(width: 350,height: 66)
                 .background(.verdeClarinho)
                 .cornerRadius(20)
                 .padding(.top,30)
-                
-                
-                
-                
                 Spacer()
             }
+            
         }
         .onAppear(){
             viewModel.fetch()
