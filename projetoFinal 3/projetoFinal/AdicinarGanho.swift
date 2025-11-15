@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct AdicionarGanho: View {
-    @State var categoriaSelecionada: Category?
+    @State var categoriaSelecionada: Category? //alterado aqui
     @State var titulo = ""
     @State var valor = ""
     @State var valorAux:Int = 0
     @State var ganhoOuGasto = true
     @StateObject var viewModel = ViewModel()
-    
+    @State var categoriaSelecionadaTipo: newCategory? //alterado aqui
     @State private var showAlert = false
     @State private var alertMessage: String = ""
     
@@ -114,18 +114,26 @@ struct AdicionarGanho: View {
                         showAlert = true
                         return
                     }
+                    //alterado aqui
+                    categoriaSelecionadaTipo = .init(name: categoriaSelecionada?.name ?? "")
+                    
                     if ganhoOuGasto {
                         valorDouble = Double(valor)! * -1
                     }
                     
-                    viewModel.addTransaction(
-                        descricao: titulo,
-                        valor: valorDouble,
-                        categoria: categoria
-                    )
-                    
-                    titulo = ""
-                    valor = ""
+                    if(categoriaSelecionadaTipo != nil && categoriaSelecionadaTipo!.name != ""){
+                        viewModel.addTransaction(
+                            descricao: titulo,
+                            valor: valorDouble,
+                            categoria: categoriaSelecionadaTipo!
+                        )
+                        
+                        titulo = ""
+                        valor = ""
+                        //ate aqui
+                    }else{
+                        print("jvdyavjdhsbahs")
+                    }
                 }
                 .font(.system(size: 25))
                 .foregroundColor(.black)

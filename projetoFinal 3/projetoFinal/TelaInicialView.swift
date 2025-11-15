@@ -19,7 +19,8 @@ struct TelaInicialView: View {
     @State private var showingSheetGasto = false
     @State private var showingSheetGanho = false
 
-    @StateObject var dados = ViewModel()
+//    @StateObject var dados = ViewModel()
+    @EnvironmentObject var dados: ViewModel
     private var areaBackground: Gradient {
         return Gradient(colors: [Color.brown, Color.brown.opacity(0.1)])
     }
@@ -31,9 +32,10 @@ struct TelaInicialView: View {
     
     
     var body: some View {
+        
         ZStack {
             Color.corDeFundo
-            
+                .ignoresSafeArea()
             VStack {
                 Text("Finance AI")
                     .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
@@ -46,7 +48,7 @@ struct TelaInicialView: View {
                     ZStack (alignment: .leading) {
                         Rectangle()
                             .frame(width: 360, height: 50)
-                            .foregroundColor(.verdeClarinho)
+                            .foregroundColor(.corCaixaDeTexto)
                             .cornerRadius(10)
                         Text("R$ \(String(format: "%.2f", dados.ganhos + dados.gastos))")
                             .foregroundStyle(Color.corTextosBotoes)
@@ -61,7 +63,7 @@ struct TelaInicialView: View {
                         ZStack (alignment: .leading) {
                             Rectangle()
                                 .frame(width: 150, height: 50)
-                                .foregroundColor(.verdeClarinho)
+                                .foregroundColor(.corCaixaDeTexto)
                                 .cornerRadius(10)
                             Text("R$ \(String(format: "%.2f", dados.ganhos))")
                                 .foregroundStyle(Color.corTextosBotoes)
@@ -77,7 +79,7 @@ struct TelaInicialView: View {
                         ZStack (alignment: .leading) {
                             Rectangle()
                                 .frame(width: 150, height: 50)
-                                .foregroundColor(.verdeClarinho)
+                                .foregroundColor(.corCaixaDeTexto)
                                 .cornerRadius(10)
                             Text("R$ \(String(format: "%.2f", dados.gastos))")
                                 .foregroundStyle(Color.corTextosBotoes)
@@ -100,7 +102,7 @@ struct TelaInicialView: View {
                                 x: .value("", index),
                                 y: .value("\(dado)", abs(dado))
                             )
-                            .foregroundStyle(index == 1 ? Color.red : Color.verdeClarinho)
+                            .foregroundStyle(index == 1 ? Color.red : Color.corCaixaDeTexto)
                             
                         }
                         .chartXScale(domain: -1...2)
@@ -116,7 +118,7 @@ struct TelaInicialView: View {
                     Spacer()
                     Image(systemName: "plus.app.fill")
                         .resizable()
-                        .frame(width: 130, height: 130)
+                        .frame(width: 100, height: 100)
                         .foregroundStyle(Color.corTextosBotoes)
                         .onTapGesture {
                             showingSheetGanho.toggle()
@@ -132,7 +134,7 @@ struct TelaInicialView: View {
                     Spacer()
                     Image(systemName: "minus.circle.fill")
                         .resizable()
-                        .frame(width: 130, height: 130)
+                        .frame(width: 100, height: 100)
                         .foregroundStyle(Color.verdeClarinho)
                         .onTapGesture {
                             showingSheetGasto.toggle()
@@ -152,7 +154,8 @@ struct TelaInicialView: View {
                 dados.fetch()
                 
             }
-        }.ignoresSafeArea()
+        }
+        .ignoresSafeArea()
             
         
         
@@ -165,4 +168,5 @@ struct TelaInicialView: View {
 //
 #Preview {
     TelaInicialView()
+        .environmentObject(ViewModel())
 }

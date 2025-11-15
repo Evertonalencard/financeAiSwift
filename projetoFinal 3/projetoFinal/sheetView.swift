@@ -14,6 +14,7 @@ struct editTransaction: View {
     @State var transaction: Transaction
     
     @State var categoriaSelecionada: Category?
+    @State var categoriaSelecionadaTipo: newCategory?
     @State var titulo = ""//"\(transaction.descricao)"
     @State var valor = ""//"\(transaction.valor)"
     @StateObject var viewModel = ViewModel()
@@ -26,6 +27,7 @@ struct editTransaction: View {
             Color.corDeFundo
                 .ignoresSafeArea()
             VStack {
+                Spacer()
                 
                 TextField("", text: $titulo,prompt: Text("Titulo:").font(.system(size: 25)).foregroundColor(.corTextosBotoes))
                     .foregroundColor(.corTextosBotoes)
@@ -58,7 +60,7 @@ struct editTransaction: View {
                 .cornerRadius(10)
                 .tint(.corTextosBotoes)// deve ser substituido por categoria.
                 
-                Button("Adicionar") {
+                Button("Atualizar") {
                     guard !titulo.isEmpty, !valor.isEmpty else {
                         alertMessage = "Preencha todos os campos"
                         showAlert = true
@@ -76,18 +78,27 @@ struct editTransaction: View {
                         showAlert = true
                         return
                     }
+                    //alterado aqui
+                    categoriaSelecionadaTipo = .init(name: categoriaSelecionada?.name ?? "")
                     
-                    viewModel.editTransaction(trasaction: Transaction(
-                        _id: transaction._id,
-                        _rev: transaction._rev,
-                        descricao: titulo,
-                        valor: valorDouble,
-                        data: transaction.data,
-                        category: categoria
-                    ))
-                    
-                    titulo = ""
-                    valor = ""
+                    if(categoriaSelecionadaTipo != nil && categoriaSelecionadaTipo!.name != ""){
+                        viewModel.editTransaction(trasaction: Transaction(
+                            _id: transaction._id,
+                            _rev: transaction._rev,
+                            descricao: titulo,
+                            valor: valorDouble,
+                            data: transaction.data,
+                            category: categoriaSelecionadaTipo!
+                        ))
+                        
+                        titulo = ""
+                        valor = ""
+                        //ate aqui
+                    }
+                    else
+                    {
+                        print("dajksd as")
+                    }
                     
                 }
                 
@@ -96,10 +107,10 @@ struct editTransaction: View {
                 .frame(width: 350,height: 66)
                 .background(.verdeClarinho)
                 .cornerRadius(20)
-                .padding(.top,30)
+                .padding(EdgeInsets(top: 30, leading: 0, bottom: 20, trailing: 0))
                 
                 
-                Spacer()
+                
             }
         }
         
@@ -128,7 +139,7 @@ struct editTransaction: View {
         descricao: "Teste",
         valor: 100.0,
         data: Int(Date().timeIntervalSince1970),
-        category: Category(name: "Alimentação")
+        category: newCategory(name: "Alimentação")
     ))
     .environmentObject(ViewModel()) // ✅ Se usar EnvironmentObject
 }

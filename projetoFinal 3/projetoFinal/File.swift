@@ -8,10 +8,16 @@
 import Foundation
 
 struct Category: Codable, Hashable {
-    //    let _id: String
-    //    let _rev: String
+    let _id: String
+    let _rev: String
     let name: String
 }
+
+//struct Categories: Codable, Hashable {
+////    let _id: String
+////    let _rev: String
+//    let name: String
+//}
 
 struct newCategory: Codable, Hashable {
     let name: String
@@ -23,14 +29,14 @@ struct Transaction: Codable, Hashable {
     let descricao: String
     let valor: Double
     let data: Int
-    let category:Category
+    let category:newCategory
 }
 
 struct NovaTransacao: Codable {
     let descricao: String
     let valor: Double
     let data: Int
-    let category: Category
+    let category: newCategory
 }
 
 class ViewModel: ObservableObject {
@@ -43,15 +49,22 @@ class ViewModel: ObservableObject {
     var isLoading = false
     var usarMock = true
     
+    
+    
+    // MARK: - Fetch Transactions
     func fetch() {
         
         if usarMock {
-            // Dados mockados para teste
+            // ✅ Dados mockados para teste
             self.transactions = [
-                Transaction(_id: "1", _rev: "1", descricao: "Salário", valor: 5000.0, data: 1699747200, category: Category(name: "Renda")),
-                Transaction(_id: "2", _rev: "1", descricao: "Supermercado", valor: 250.0, data: 1699747200, category: Category(name: "Alimentação")),
-                Transaction(_id: "3", _rev: "1", descricao: "Uber", valor: 45.0, data: 1699747200, category: Category(name: "Transporte"))
+                Transaction(_id: "1", _rev: "1", descricao: "Salário", valor: 5000.0, data: 1699747200, category: newCategory(name: "Renda")),
+                Transaction(_id: "2", _rev: "1", descricao: "Supermercado", valor: -250.0, data: 1699747200, category: newCategory(name: "Alimentação")),
+                Transaction(_id: "3", _rev: "1", descricao: "Uber", valor: -45.0, data: 1699747200, category: newCategory(name: "Transporte")),
+                Transaction(_id: "4", _rev: "1", descricao: "Freelance", valor: 1500.0, data: 1699747200, category: newCategory(name: "Renda")),
+                Transaction(_id: "5", _rev: "1", descricao: "Academia", valor: -120.0, data: 1699747200, category: newCategory(name: "Saúde"))
             ]
+            calculoGanhos()
+            calculoGastos()
             return
         }
         
@@ -84,20 +97,20 @@ class ViewModel: ObservableObject {
         
     }
     
+    // MARK: - Fetch Categories
     func fetchCategory() {
         
         if usarMock {
-            
-            // Categorias mockadas
+            // ✅ Categorias mockadas
             self.categories = [
-                Category(name: "Alimentação"),
-                Category(name: "Transporte"),
-                Category(name: "Lazer"),
-                Category(name: "Saúde"),
-                Category(name: "Educação"),
-                Category(name: "Renda"),
-                Category(name: "Contas"),
-                Category(name: "Outros")
+                Category(_id: "1", _rev: "1", name: "Alimentação"),
+                Category(_id: "2", _rev: "1", name: "Transporte"),
+                Category(_id: "3", _rev: "1", name: "Lazer"),
+                Category(_id: "4", _rev: "1", name: "Saúde"),
+                Category(_id: "5", _rev: "1", name: "Educação"),
+                Category(_id: "6", _rev: "1", name: "Renda"),
+                Category(_id: "7", _rev: "1", name: "Contas"),
+                Category(_id: "8", _rev: "1", name: "Outros")
             ]
             return
         }
@@ -131,7 +144,21 @@ class ViewModel: ObservableObject {
         
     }
     
+    // MARK: - Add Category
     func addCategory(nome: String) {
+        
+        if usarMock {
+            // ✅ Simular adição local de categoria
+            let novaCategoria = Category(
+                _id: UUID().uuidString,
+                _rev: "1",
+                name: nome
+            )
+            self.categories.append(novaCategoria)
+            print("✅ Categoria mockada adicionada: \(nome)")
+            return
+        }
+        
         guard let url = URL(string: "http://192.168.128.31:1880/postCategories") else{
             print("Erro ao criar URL")
             return
@@ -172,7 +199,15 @@ class ViewModel: ObservableObject {
         }.resume()
     }
     
+    // MARK: - Remove Category
     func removeCategory(categories: Category) {
+        
+        if usarMock {
+            // ✅ Remover categoria localmente
+            self.categories.removeAll { $0._id == categories._id }
+            print("✅ Categoria mockada removida: \(categories.name)")
+            return
+        }
         
         guard let url = URL(string: "http://192.168.128.31:1880/removeCategory") else {
             print("Erro ao criar URL")
@@ -208,10 +243,11 @@ class ViewModel: ObservableObject {
         }.resume()
     }
     
-    func addTransaction(descricao: String, valor: Double, categoria: Category) {
+    // MARK: - Add Transaction
+    func addTransaction(descricao: String, valor: Double, categoria: newCategory) {
         
         if usarMock {
-            // Simular adição local
+            // ✅ Simular adição local de transação
             let novaTransacao = Transaction(
                 _id: UUID().uuidString,
                 _rev: "1",
@@ -221,6 +257,8 @@ class ViewModel: ObservableObject {
                 category: categoria
             )
             self.transactions.append(novaTransacao)
+            calculoGanhos()
+            calculoGastos()
             print("✅ Transação mockada adicionada: \(descricao)")
             return
         }
@@ -266,43 +304,64 @@ class ViewModel: ObservableObject {
         }.resume()
     }
     
+    // MARK: - Remove Transaction
     func removeTransaction(trasaction: Transaction) {
-            
-            guard let url = URL(string: "http://192.168.128.31:1880/removeTransaction") else {
-                print("Erro ao criar URL")
-                return
-            }
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = "DELETE"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.setValue("application/json", forHTTPHeaderField: "Accept")
-            
-            do {
-                let jsonData = try JSONEncoder().encode(trasaction)
-                request.httpBody = jsonData
-            } catch {
-                print("Erro ao encodar: \(error)")
-                return
-            }
-            
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("Erro: \(error)")
-                    return
-                }
-                
-                if let httpResponse = response as? HTTPURLResponse,
-                   (200...299).contains(httpResponse.statusCode) {
-                    print("Sucesso!")
-                    DispatchQueue.main.async {
-                        self.fetch()
-                    }
-                }
-            }.resume()
+        
+        if usarMock {
+            // ✅ Remover transação localmente
+            self.transactions.removeAll { $0._id == trasaction._id }
+            calculoGanhos()
+            calculoGastos()
+            print("✅ Transação mockada removida: \(trasaction.descricao)")
+            return
         }
+        
+        guard let url = URL(string: "http://192.168.128.31:1880/removeTransaction") else {
+            print("Erro ao criar URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        do {
+            let jsonData = try JSONEncoder().encode(trasaction)
+            request.httpBody = jsonData
+        } catch {
+            print("Erro ao encodar: \(error)")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Erro: \(error)")
+                return
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse,
+               (200...299).contains(httpResponse.statusCode) {
+                print("Sucesso!")
+                DispatchQueue.main.async {
+                    self.fetch()
+                }
+            }
+        }.resume()
+    }
     
+    // MARK: - Edit Transaction
     func editTransaction(trasaction: Transaction) {
+        if usarMock {
+            // ✅ Editar transação localmente
+            if let index = transactions.firstIndex(where: { $0._id == trasaction._id }) {
+                transactions[index] = trasaction
+                calculoGanhos()
+                calculoGastos()
+                print("✅ Transação mockada editada: \(trasaction.descricao)")
+            }
+            return
+        }
         
         guard let url = URL(string: "http://192.168.128.31:1880/putTransaction") else {
             print("Erro ao criar URL")
@@ -352,9 +411,13 @@ class ViewModel: ObservableObject {
             }
         }
         
-//        print(ganhos)
+        //        print(ganhos)
         
         self.ganhos = ganhos
+        
+        if usarMock{
+            atualizarGastosGanhos()
+        }
     }
     
     func calculoGastos()  {
@@ -371,11 +434,21 @@ class ViewModel: ObservableObject {
             }
         }
         
-//        print(gastos)
+        //        print(gastos)
         
         self.gastos = gastos
+        
+        if usarMock{
+            atualizarGastosGanhos()
+        }
+    }
+    
+    // Função auxiliar para atualizar array de gráfico
+    func atualizarGastosGanhos() {
+        self.gastosGanhos = [ganhos, abs(gastos)]
     }
     
     
 }
+
 

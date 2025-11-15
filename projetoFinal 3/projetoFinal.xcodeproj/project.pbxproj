@@ -15,6 +15,7 @@
 		069F12DC2EC3B056000193C9 /* categorias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069F12DB2EC3B056000193C9 /* categorias.swift */; };
 		069F12DE2EC3B501000193C9 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069F12DD2EC3B501000193C9 /* File.swift */; };
 		1605D5452EC556EC0027AEDE /* AdicinarGanho.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1605D5442EC556D00027AEDE /* AdicinarGanho.swift */; };
+		166AEE872EC80FFD008628C7 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166AEE862EC80FEF008628C7 /* ContentViewModel.swift */; };
 		1675E92C2EC568F400271167 /* sheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1675E92B2EC568F300271167 /* sheetView.swift */; };
 		1675E9372EC56A6E00271167 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 1675E9362EC56A6E00271167 /* AsyncAlgorithms */; };
 		168D690D2EC6C23200615BEB /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168D690C2EC6C22800615BEB /* TabView.swift */; };
@@ -33,10 +34,12 @@
 		069F12DB2EC3B056000193C9 /* categorias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categorias.swift; sourceTree = "<group>"; };
 		069F12DD2EC3B501000193C9 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		1605D5442EC556D00027AEDE /* AdicinarGanho.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdicinarGanho.swift; sourceTree = "<group>"; };
+		166AEE862EC80FEF008628C7 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		1675E92B2EC568F300271167 /* sheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sheetView.swift; sourceTree = "<group>"; };
 		168D690C2EC6C22800615BEB /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		168D691F2EC6C6CB00615BEB /* ApiKeyValid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeyValid.swift; sourceTree = "<group>"; };
 		871C1F602EC6748F002D9C5C /* IADasFinancas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IADasFinancas.swift; sourceTree = "<group>"; };
+		876ECE312EC79FBD00FE98D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,8 +74,10 @@
 		069F12CA2EC39EA7000193C9 /* projetofinal */ = {
 			isa = PBXGroup;
 			children = (
+				876ECE312EC79FBD00FE98D4 /* Info.plist */,
 				168D691F2EC6C6CB00615BEB /* ApiKeyValid.swift */,
 				032A1ED32EC6474E0066CD8F /* TelaInicialView.swift */,
+				166AEE862EC80FEF008628C7 /* ContentViewModel.swift */,
 				871C1F602EC6748F002D9C5C /* IADasFinancas.swift */,
 				069F12DD2EC3B501000193C9 /* File.swift */,
 				069F12CB2EC39EA7000193C9 /* projetofinalApp.swift */,
@@ -176,6 +181,7 @@
 				069F12DC2EC3B056000193C9 /* categorias.swift in Sources */,
 				168D69222EC6CA3100615BEB /* ApiKeyValid.swift in Sources */,
 				069F12CC2EC39EA7000193C9 /* projetofinalApp.swift in Sources */,
+				166AEE872EC80FFD008628C7 /* ContentViewModel.swift in Sources */,
 				1675E92C2EC568F400271167 /* sheetView.swift in Sources */,
 				168D690D2EC6C23200615BEB /* TabView.swift in Sources */,
 				1605D5452EC556EC0027AEDE /* AdicinarGanho.swift in Sources */,
@@ -316,6 +322,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"projetofinal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = projetofinal/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -344,6 +351,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"projetofinal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = projetofinal/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
