@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 struct Category: Codable, Hashable {
     let _id: String
@@ -46,13 +47,17 @@ class ViewModel: ObservableObject {
     @Published var ganhos: Double = 0
     @Published var gastosGanhos: [Double] = []
     
-    var isLoading = false
+    @Published var carregando = false
+    
+    
     var usarMock = true
     
     
     
     // MARK: - Fetch Transactions
     func fetch() {
+        
+        
         
         if usarMock {
             // ✅ Dados mockados para teste
@@ -65,11 +70,15 @@ class ViewModel: ObservableObject {
             ]
             calculoGanhos()
             calculoGastos()
+            
+            
+            
             return
         }
         
         guard let url = URL(string: "http://192.168.128.31:1880/getTransactions") else {
             print("Erro ao criar URL")
+            
             return
         }
         
@@ -85,6 +94,7 @@ class ViewModel: ObservableObject {
                 
                 DispatchQueue.main.async {
                     self?.transactions = parsed
+                    
                 }
                 
             } catch {
@@ -98,50 +108,105 @@ class ViewModel: ObservableObject {
     }
     
     // MARK: - Fetch Categories
-    func fetchCategory() {
-        
+//    func fetchCategory() {
+//        carregando = true
+//
+//        if usarMock {
+//            // ✅ Categorias mockadas
+//            self.categories = [
+//                Category(_id: "1", _rev: "1", name: "Alimentação"),
+//                Category(_id: "2", _rev: "1", name: "Transporte"),
+//                Category(_id: "3", _rev: "1", name: "Lazer"),
+//                Category(_id: "4", _rev: "1", name: "Saúde"),
+//                Category(_id: "5", _rev: "1", name: "Educação"),
+//                Category(_id: "6", _rev: "1", name: "Renda"),
+//                Category(_id: "7", _rev: "1", name: "Contas"),
+//                Category(_id: "8", _rev: "1", name: "Outros")
+//            ]
+//            return
+//        }
+//
+//        guard let url = URL(string: "http://192.168.128.31:1880/getCategories") else {
+//            print("Erro ao criar URL")
+//            return
+//        }
+//
+//        let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+//
+//            guard let data = data, error == nil else {
+//                return
+//            }
+//
+//            do {
+//
+//                let parsed = try JSONDecoder().decode([Category].self, from: data)
+//
+//                DispatchQueue.main.async {
+//                    self?.categories = parsed
+//                }
+//
+//            } catch {
+//                print(error)
+//            }
+//
+//        }
+//        carregando = false
+//        task.resume()
+//
+//    }
+    
+    func fetchCategory() { // se isso nao funcionar voltar para o anterior
+        DispatchQueue.main.async { self.carregando = true }
+
         if usarMock {
-            // ✅ Categorias mockadas
-            self.categories = [
-                Category(_id: "1", _rev: "1", name: "Alimentação"),
-                Category(_id: "2", _rev: "1", name: "Transporte"),
-                Category(_id: "3", _rev: "1", name: "Lazer"),
-                Category(_id: "4", _rev: "1", name: "Saúde"),
-                Category(_id: "5", _rev: "1", name: "Educação"),
-                Category(_id: "6", _rev: "1", name: "Renda"),
-                Category(_id: "7", _rev: "1", name: "Contas"),
-                Category(_id: "8", _rev: "1", name: "Outros")
-            ]
+            DispatchQueue.main.async {
+                self.categories = [
+                    Category(_id: "1", _rev: "1", name: "Alimentação"),
+                    Category(_id: "2", _rev: "1", name: "Transporte"),
+                    Category(_id: "3", _rev: "1", name: "Lazer"),
+                    Category(_id: "4", _rev: "1", name: "Saúde"),
+                    Category(_id: "5", _rev: "1", name: "Educação"),
+                    Category(_id: "6", _rev: "1", name: "Renda"),
+                    Category(_id: "7", _rev: "1", name: "Contas"),
+                    Category(_id: "8", _rev: "1", name: "Outros")
+                ]
+                self.carregando = false
+            }
             return
         }
-        
+
         guard let url = URL(string: "http://192.168.128.31:1880/getCategories") else {
             print("Erro ao criar URL")
+            DispatchQueue.main.async { self.carregando = false }
             return
         }
-        
+
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            
-            guard let data = data, error == nil else {
+            guard let self = self else { return }
+
+            if let error = error {
+                print("Erro: \(error)")
+                DispatchQueue.main.async { self.carregando = false }
                 return
             }
-            
+
+            guard let data = data else {
+                DispatchQueue.main.async { self.carregando = false }
+                return
+            }
+
             do {
-                
                 let parsed = try JSONDecoder().decode([Category].self, from: data)
-                
                 DispatchQueue.main.async {
-                    self?.categories = parsed
+                    self.categories = parsed
+                    self.carregando = false
                 }
-                
             } catch {
                 print(error)
+                DispatchQueue.main.async { self.carregando = false }
             }
-            
         }
-        
         task.resume()
-        
     }
     
     // MARK: - Add Category
@@ -450,5 +515,4 @@ class ViewModel: ObservableObject {
     
     
 }
-
 

@@ -45,6 +45,7 @@ struct ContentView: View {
     @StateObject var viewModel = ViewModel()
     @State var meses : [String] = []
     @State private var selectedItem: Transaction? = nil
+    @State private var isLoadingi: Bool = false
     //    @State var showingSheet: Bool = false
     
     var monthsArray: [String: String] = [
@@ -205,6 +206,12 @@ struct ContentView: View {
                                     }
                                 }
                             }
+                            if (isLoadingi) {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                    .safeAreaPadding(.top, 20)
+                            }
+                            
                             
                         }
                         .padding(10)
@@ -213,10 +220,12 @@ struct ContentView: View {
                 }
             }
             .onAppear() {
+                isLoadingi = true
                 viewModel.fetch()
                 
                 Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false){ _ in
                     getMonth(transactionArray: viewModel.transactions)
+                    isLoadingi = false
                 }
             }
         }

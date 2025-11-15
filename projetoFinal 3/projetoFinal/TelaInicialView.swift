@@ -128,7 +128,7 @@ struct TelaInicialView: View {
                                 .presentationDetents([
                                     .custom(CustomDetent.self)
                                 ])
-                                .presentationDetents([.fraction(0.65)])
+                                .presentationDetents([.fraction(0.77)])
                         }
                     
                     Spacer()
@@ -144,7 +144,7 @@ struct TelaInicialView: View {
                                 .presentationDetents([
                                     .custom(CustomDetent.self)
                                 ])
-                                .presentationDetents([.fraction(0.65)])
+                                .presentationDetents([.fraction(0.77)])
                         }
                     Spacer()
                 }
@@ -156,6 +156,7 @@ struct TelaInicialView: View {
             }
         }
         .ignoresSafeArea()
+        
             
         
         

@@ -97,13 +97,18 @@ struct categorias: View {
                         .padding(.horizontal)
                     }
                 }
+                if viewModel.carregando { // aplicar isloadingi
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .safeAreaPadding(.top, 20)
+                }
                 
                 Spacer()
                 Button("Criar nova categoria") {
                     dissapearSheet.toggle()
                 }.sheet(isPresented: $dissapearSheet) {
                     SheetView()
-                        .presentationDetents([.fraction(0.35)])
+                        .presentationDetents([.fraction(0.45)])
                 }
                 
                 .font(.system(size:25))
@@ -117,12 +122,15 @@ struct categorias: View {
             
             
             
-        }.onAppear() {
+        }
+        .onAppear {
             viewModel.fetchCategory()
         }
+        
     }
 }
 #Preview {
     categorias()
     //    SheetView()
 }
+
